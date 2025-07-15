@@ -3,10 +3,10 @@ This project solves a SQL-based data engineering challenge using Python and SQLi
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
-📁 Teleparty-Project
+  Teleparty-Project
 ├── all-episode-ratings.csv
 ├── all-series-ep-average.csv
 ├── top-seasons-full.csv
@@ -16,7 +16,44 @@ This project solves a SQL-based data engineering challenge using Python and SQLi
 
 ---
 
-## 🛠️ Tools Used
+
+---
+
+##  Table Schema (DDL)
+
+```sql
+-- series_summary
+CREATE TABLE series_summary (
+  code TEXT PRIMARY KEY,
+  title TEXT,
+  rating FLOAT,
+  rating_count INTEGER,
+  rank INTEGER,
+  rating_mean FLOAT
+);
+
+-- episode_ratings
+CREATE TABLE episode_ratings (
+  code TEXT,
+  season INTEGER,
+  episode INTEGER,
+  rating FLOAT,
+  PRIMARY KEY (code, season, episode),
+  FOREIGN KEY (code) REFERENCES series_summary(code)
+);
+
+-- top_seasons
+CREATE TABLE top_seasons (
+  code TEXT,
+  season INTEGER,
+  title TEXT,
+  rating_mean FLOAT,
+  number_of_episodes INTEGER,
+  PRIMARY KEY (code, season),
+  FOREIGN KEY (code) REFERENCES series_summary(code)
+);
+
+##  Tools Used
 
 - Python 3
 - SQLite3 (in-memory DB)
@@ -26,7 +63,7 @@ This project solves a SQL-based data engineering challenge using Python and SQLi
 
 ---
 
-## 📥 Data Ingestion
+##  Data Ingestion
 
 All 3 CSV files are loaded into in-memory SQLite tables:
 
@@ -40,17 +77,25 @@ These tables are used for running real SQL queries.
 
 ## ⚙️ Queries Answered
 
-### ✅ Query 1: Display all shows with rating ≤ 5
+###  Query 1: Display all shows with rating ≤ 5
 - Option 1: Episode-based (any episode ≤ 5)
 - Option 2: Series-based (overall rating ≤ 5)
 - Option 3: Average rating (rating_mean ≤ 5)
 - Subquery: Shows from each option with > 1 season
 
-### ✅ Query 2: Show with highest rating count and lowest rank
-- Also includes total episodes & seasons
+### Query 2: Show with highest rating count AND lowest rank
 
-### ✅ Query 3: Show with lowest rating count and highest rank
-- Also includes total episodes & seasons
+Displays show with both conditions met
+
+Shows total episodes & seasons from episode_ratings
+
+### Query 3: Show with lowest rating count AND highest rank
+
+Displays show with both conditions met
+
+Shows total episodes & seasons from episode_ratings
+
+
 
 ---
 
@@ -68,7 +113,38 @@ These tables are used for running real SQL queries.
 
 ---
 
-## 📊 System Architecture (Mermaid Diagram)
+##  Relational Schema (Mermaid Diagram)
+
+```mermaid
+erDiagram
+    series_summary ||--o{ episode_ratings : contains
+    series_summary ||--o{ top_seasons : highlights
+
+    series_summary {
+        TEXT code PK
+        TEXT title
+        FLOAT rating
+        INT rating_count
+        INT rank
+        FLOAT rating_mean
+    }
+
+    episode_ratings {
+        TEXT code PK, FK
+        INT season PK
+        INT episode PK
+        FLOAT rating
+    }
+
+    top_seasons {
+        TEXT code PK, FK
+        INT season PK
+        TEXT title
+        FLOAT rating_mean
+        INT number_of_episodes
+    }
+```
+##  System Architecture (Mermaid Diagram)
 
 ```mermaid
 graph TD
