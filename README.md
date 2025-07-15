@@ -16,9 +16,6 @@ This project solves a SQL-based data engineering challenge using Python and SQLi
 
 ---
 
-
----
-
 ##  Table Schema (DDL)
 
 ```sql
@@ -52,9 +49,9 @@ CREATE TABLE top_seasons (
   PRIMARY KEY (code, season),
   FOREIGN KEY (code) REFERENCES series_summary(code)
 );
-
+```
 ##  Tools Used
-
+```
 - Python 3
 - SQLite3 (in-memory DB)
 - Pandas
@@ -62,9 +59,9 @@ CREATE TABLE top_seasons (
 - Mermaid.js (for diagrams)
 
 ---
-
+```
 ##  Data Ingestion
-
+```
 All 3 CSV files are loaded into in-memory SQLite tables:
 
 - `episode_ratings`
@@ -72,11 +69,11 @@ All 3 CSV files are loaded into in-memory SQLite tables:
 - `top_seasons`
 
 These tables are used for running real SQL queries.
-
+```
 ---
 
 ## ⚙️ Queries Answered
-
+```
 ###  Query 1: Display all shows with rating ≤ 5
 - Option 1: Episode-based (any episode ≤ 5)
 - Option 2: Series-based (overall rating ≤ 5)
@@ -96,22 +93,19 @@ Displays show with both conditions met
 Shows total episodes & seasons from episode_ratings
 
 
-
+```
 ---
 
 ## 🔍 Example Output (Terminal)
 
+```📊 1️⃣ OPTION 1: Shows with ANY episode rated ≤ 5
+╒════╤═══════════╤════════════════════╤════════╤══════════╤═════════╕
+│ No │ code      │ title              │ season │ episode  │ rating  │
+╞════╪═══════════╪════════════════════╪════════╪══════════╪═════════╡
+│  1 │ tt1234567 │ Dexter             │  2     │    4     │  4.8    │
+│  2 │ tt2345678 │ Top Gear           │ 23     │    6     │  2.2    │
+╘════╧═══════════╧════════════════════╧════════╧══════════╧═════════╛
 ```
-📊 1️⃣ OPTION 1: Shows with ANY episode rated ≤ 5
-╒════╤═══════════╤════════════════════╕
-│ No │ code      │ title              │
-╞════╪═══════════╪════════════════════╡
-│  1 │ tt1234567 │ Dexter             │
-│  2 │ tt2345678 │ Top Gear           │
-╘════╧═══════════╧════════════════════╛
-```
-
----
 
 ##  Relational Schema (Mermaid Diagram)
 
@@ -144,6 +138,8 @@ erDiagram
         INT number_of_episodes
     }
 ```
+---
+
 ##  System Architecture (Mermaid Diagram)
 
 ```mermaid
@@ -159,7 +155,7 @@ graph TD
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 ```bash
 pip install pandas tabulate
@@ -168,10 +164,10 @@ python3 telepartyproj.py
 
 ---
 
-## 👤 Author
+##  Author
 Sreethi Reddy
 
 ---
 
 ## 📄 License
-This project is part of an academic coding challenge and is intended for learning purposes.
+This project is part of a coding challenge and is intended for learning purposes.
