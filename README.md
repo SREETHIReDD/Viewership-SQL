@@ -168,6 +168,3 @@ python3 telepartyproj.py
 Sreethi Reddy
 
 ---
-
-## 📄 License
-This project is part of a coding challenge and is intended for learning purposes.
