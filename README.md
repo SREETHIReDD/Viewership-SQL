@@ -1,4 +1,4 @@
-# Viewership-SQL
+# Teleparty Data Engineering Challenge
 This project solves a SQL-based data engineering challenge using Python and SQLite. It analyzes three datasets containing episode ratings, series summaries, and top-rated seasons. The goal is to ingest the data into a relational database, perform SQL queries, and generate clean reports.
 
 ---
